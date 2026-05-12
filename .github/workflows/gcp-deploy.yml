@@ -21,7 +21,7 @@ jobs:
     - name: Build & Push image
       run: |
         IMAGE="asia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO }}/pso"
-        docker build -t $IMAGE:$GITHUB_SHA .
+        docker build --build-arg MONGODB_URL="${{ secrets.MONGODB_URL }}" -t $IMAGE:$GITHUB_SHA .
         docker push $IMAGE:$GITHUB_SHA
 
     - name: Deploy ke Cloud Run
